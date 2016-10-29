@@ -1,8 +1,6 @@
 # hello-world
-just another repository
 
-
-Hi,human!
+Hi,everyone!
 
 Here is a tutorial about nodejs,including nodejs install app,source code,learning video,etc.
 
