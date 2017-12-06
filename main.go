@@ -24,6 +24,12 @@ type Judge struct {
 	//Message map[string]interface{} `json:"messages,omitempty"`
 }
 
+type JudgeResponse struct {
+	Message string `json:"message"`
+	Code    int    `json:"code,omitempty"`
+	Exist   bool   `json:"exist,omitempty"`
+}
+
 func SelectMessage(w http.ResponseWriter, req *http.Request) {
 
 	var query Query
@@ -63,12 +69,29 @@ func JudgeMessage(w http.ResponseWriter, req *http.Request) {
 
 	message, err := parser.Query(judge.Where)
 
-	judge.Message = message
-	judge.Err = err
+	var judgeResponse JudgeResponse
+	if message == nil {
+		if err == nil {
+			judgeResponse.Message = ""
+		} else {
+			judgeResponse.Message = err.Error()
+		}
+		judgeResponse.Code = -1
+		judgeResponse.Exist = false
+	} else {
+		judgeResponse.Message = ""
+		judgeResponse.Code = 0
+		judgeResponse.Exist = true
+	}
 
-	logger.Info("返回值 : ", judge)
+	logger.Info("返回值 : ", judgeResponse)
 
-	json.NewEncoder(w).Encode(judge)
+	//w.Header.set("", "")
+
+	//http.Header.Add()
+	w.Header().Set("Content-Type", "application/json")
+
+	json.NewEncoder(w).Encode(judgeResponse)
 
 }
 
