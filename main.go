@@ -5,11 +5,6 @@ import (
 	"encoding/json"
 	"net/http"
 
-<<<<<<< HEAD
-	"github.com/gorilla/mux"
-	"github.com/elgs/jsonql"
-=======
->>>>>>> 153f7ddfad5d33f7b6ad7d6b1157f7c5b2600be9
 	"github.com/donnie4w/go-logger/logger"
 	"github.com/elgs/jsonql"
 	"github.com/gorilla/mux"
@@ -25,19 +20,12 @@ type Judge struct {
 	Where   string      `json:"where,omitempty"`
 	Message interface{} `json:"message,omitempty"`
 	Err     error       `json:"error,omitempty"`
-	//Message []interface{} `json:"messages,omitempty"`
-	//Message map[string]interface{} `json:"messages,omitempty"`
 }
 
 type JudgeResponse struct {
-	Message string `json:"message"`
-<<<<<<< HEAD
+	Message string `json:"message"` 
 	Code    int    `json:"code"`
-	Valid   bool   `json:"valid"`
-=======
-	Code    int    `json:"code,omitempty"`
-	Exist   bool   `json:"exist,omitempty"`
->>>>>>> 153f7ddfad5d33f7b6ad7d6b1157f7c5b2600be9
+	Valid   bool   `json:"valid"` 
 }
 
 func SelectMessage(w http.ResponseWriter, req *http.Request) {
@@ -87,19 +75,11 @@ func JudgeMessage(w http.ResponseWriter, req *http.Request) {
 			judgeResponse.Message = err.Error()
 		}
 		judgeResponse.Code = -1
-<<<<<<< HEAD
 		judgeResponse.Valid = false
 	} else {
 		judgeResponse.Message = ""
 		judgeResponse.Code = 0
 		judgeResponse.Valid = true
-=======
-		judgeResponse.Exist = false
-	} else {
-		judgeResponse.Message = ""
-		judgeResponse.Code = 0
-		judgeResponse.Exist = true
->>>>>>> 153f7ddfad5d33f7b6ad7d6b1157f7c5b2600be9
 	}
 
 	logger.Info("返回值 : ", judgeResponse)
